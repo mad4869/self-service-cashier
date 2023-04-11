@@ -1,5 +1,6 @@
-# Ignore compiled Python files
+# Ignore there files
 *.pyc
 
-# Ignore __pycache__ folder
+# Ignore these folders
 __pycache__/
+.ipynb_checkpoints/
