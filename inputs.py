@@ -164,7 +164,7 @@ def input_delete(order_items: dict):
     args:
         order_items (dict): item yang telah dipesan beserta detailnya
     return:
-        nama item yang datanya ingin dihapus
+        nama item yang datanya ingin dihapus (str)
     '''
     
     return input_update('Masukkan nama barang yang ingin dihapus: ', order_items)
