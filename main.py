@@ -90,5 +90,3 @@ table_items = check_order()
 import check_out
 
 check_out()
-
-# 7. ETC.

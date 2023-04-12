@@ -7,7 +7,6 @@ def delete_item(nama_item: str, order_items: dict):
     return:
         None
     '''
-
     # Memastikan nama_item ada di dalam order_items
     # Apabila ada, menghapus data item tersebut 
     try:
@@ -15,7 +14,6 @@ def delete_item(nama_item: str, order_items: dict):
 
         print(f'{nama_item} berhasil dihapus!\n'
               f'Daftar barang yang Anda pesan adalah sebagai berikut: {order_items}')
-    
     # Apabila tidak ada, menampilkan pesan kesalahan
     except KeyError as error:
         print(f'Penghapusan gagal. {error}. Silakan coba lagi.')
@@ -28,7 +26,6 @@ def reset_transaction(order_items: dict):
     return:
         None
     '''
-    
     order_items.clear()
 
     print('Semua barang pesanan anda telah dihapus!')

@@ -9,7 +9,6 @@ def check_out(table_items: dict):
     return:
         None
     '''
-    
     diskon = []
     harga_diskon = []
 

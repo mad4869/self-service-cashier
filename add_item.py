@@ -1,6 +1,6 @@
 def add_item(nama_items: list, jumlah_items: list, harga_items: list):
     '''
-    Fungsi untuk memasukkan masing-masing item ke dalam dictionary
+    Fungsi untuk memasukkan masing-masing item ke dalam daftar pesanan
     args:
         nama_items (list): nama item yang dipesan
         jumlah_items (list): jumlah item yang dipesan
@@ -8,7 +8,6 @@ def add_item(nama_items: list, jumlah_items: list, harga_items: list):
     return:
         order_items (dict): item yang telah dipesan beserta detailnya
     '''
-    
     order_items = {}
     
     # Memasangkan detail item dengan nama itemnya

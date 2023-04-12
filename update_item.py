@@ -15,7 +15,6 @@ def update_item_name(nama_item: str, update_nama_item: str, order_items: dict):
 
         print(f'{update_nama_item} berhasil ditambahkan!\n'
         f'Daftar barang yang Anda pesan adalah sebagai berikut: {order_items}')
-    
     # Apabila tidak ada, menampilkan pesan kesalahan
     except KeyError as error:
         print(f'{update_nama_item} gagal ditambahkan. {error}. Silakan coba lagi.')
@@ -37,7 +36,6 @@ def update_item_qty(nama_item: str, update_jumlah_item: int, order_items: dict):
         
         print(f'Jumlah {nama_item.lower()} berhasil diubah!\n'
         f'Daftar barang yang Anda pesan adalah sebagai berikut: {order_items}')
-    
     # Apabila tidak ada, menampilkan pesan kesalahan
     except KeyError as error:
         print(f'Pergantian jumlah {nama_item.lower()} gagal. {error}. Silakan coba lagi.')
@@ -59,7 +57,6 @@ def update_item_price(nama_item: str, update_harga_item: int, order_items: dict)
 
         print(f'Harga {nama_item.lower()} berhasil diubah!\n'
         f'Daftar barang yang Anda pesan adalah sebagai berikut: {order_items}')
-    
     # Apabila tidak ada, menampilkan pesan kesalahan
     except KeyError as error:
         print(f'Pergantian harga {nama_item.lower()} gagal. {error}. Silakan coba lagi.')

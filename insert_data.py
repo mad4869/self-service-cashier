@@ -15,7 +15,6 @@ def create_table():
     return:
         transactions_table (obj): tabel transaksi yang akan diisi data item pesanan
     '''
-
     # Membuat objek metadata
     metadata = MetaData()
 
@@ -44,7 +43,6 @@ def insert_to_table(table_items: dict):
     return:
         None
     '''
-    
     # Membangun koneksi dengan database
     CONN = ENGINE.connect()
 
@@ -74,11 +72,9 @@ def insert_to_table(table_items: dict):
         
         # Melakukan commit untuk menyimpan perubahan pada tabel di database
         CONN.commit()
-    
     # Jika ada kesalahan, mengembalikan database ke kondisi semula
     except:
         CONN.rollback()
-    
     # Menutup koneksi dengan database
     finally:
         CONN.close()

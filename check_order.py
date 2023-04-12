@@ -8,7 +8,6 @@ def check_order(order_items: dict):
     return:
         table_items (dict): daftar pesanan dalam bentuk tabel
     '''
-    
     # Menampilkan pesan kesalahan apabila terdapat data yang missing di dalam order_items
     for key, value in order_items.items():
         if key == '' or len(value) != 2 or 0 in value or None in value:

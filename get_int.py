@@ -4,9 +4,8 @@ def get_int(prompt: str):
     args:
         prompt (str): prompt saat input data
     return:
-        nilai integer yang dimasukkan user
+        nilai yang dimasukkan user (int)
     '''
-    
     while True:
         # Mengembalikan nilai integer jika data yang dimasukkan benar
         try: 

@@ -11,7 +11,6 @@ def input_item():
         jumlah_items (list): list yang memuat jumlah item
         harga_items (list): list yang memuat harga item
     '''
-
     want_to_order = True
     nama_items = []
     jumlah_items = []
@@ -70,7 +69,6 @@ def input_update(prompt: str, order_items: dict):
     return:
         nama_item (str): nama item yang datanya ingin diubah
     '''
-
     nama_item = (input(prompt)).title()
 
     # Memastikan nama_item ada di dalam order_items
@@ -89,7 +87,6 @@ def input_update_name(order_items: dict):
         nama_item (str): nama item yang lama
         nama_item_baru (str): nama item yang baru
     '''
-
     # Mengambil input nama item yang lama maupun yang baru
     nama_item = input_update('Masukkan nama barang yang ingin diupdate: ', order_items)
     nama_item_baru = (input('Masukkan nama barang yang baru: ')).title()
@@ -115,7 +112,6 @@ def input_update_qty(order_items: dict):
         nama_item (str): nama item yang jumlahnya ingin diubah
         jumlah_item (int): jumlah item yang baru
     '''
-
     # Mengambil input nama dan jumlah item
     nama_item = input_update('Masukkan nama barang yang jumlahnya ingin diupdate: ', order_items)
     jumlah_item = get_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
@@ -141,7 +137,6 @@ def input_update_price(order_items: dict):
         nama_item (str): nama item yang harganya ingin diubah
         harga_item (int): harga item yang baru
     '''
-
     # Mengambil input nama dan harga item
     nama_item = input_update('Masukkan nama barang yang harganya ingin diupdate: ', order_items)
     harga_item = get_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
