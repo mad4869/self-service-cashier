@@ -1,5 +1,5 @@
 from sqlalchemy import text
-from database_engine import engine as ENGINE
+from database_engine import database_engine as ENGINE
 
 def insert_to_table(table_items: dict):
     '''
@@ -12,6 +12,7 @@ def insert_to_table(table_items: dict):
     # Membangun koneksi dengan database
     CONN = ENGINE().connect()
 
+    # Membuat query untuk menyisipkan data ke dalam tabel
     insert_query = text(
         """
         INSERT INTO items(
@@ -35,6 +36,7 @@ def insert_to_table(table_items: dict):
 
     # Apabila tidak ada kesalahan, memasukkan data ke dalam database
     try:
+        # Mengakses data di list yang berada di masing-masing kolom tabel
         for (nama_item, jumlah_item, harga_item, total_harga, diskon, harga_diskon) in zip(
             table_items['Nama Item'],
             table_items['Jumlah Item'],
@@ -43,6 +45,7 @@ def insert_to_table(table_items: dict):
             table_items['Diskon'],
             table_items['Harga Setelah Diskon']):
 
+            # Mengeksekusi query
             CONN.execute(insert_query, {
                 'nama_item': nama_item,
                 'jumlah_item': jumlah_item,
@@ -52,13 +55,14 @@ def insert_to_table(table_items: dict):
                 'harga_diskon': harga_diskon
                 })
         
-        # Melakukan commit untuk menyimpan perubahan pada tabel di database
+        # Melakukan commit untuk menyimpan perubahan di dalam database
         CONN.commit()
-    # Jika ada kesalahan, mengembalikan database ke kondisi semula
+    # Apabila ada kesalahan, menampilkan pesan kesalahan
     except Exception as error:
         print(error)
 
+        # Apabila ada kesalahan, mengembalikan database ke keadaan semula
         CONN.rollback()
-    # Menutup koneksi dengan database
+    # Menutup koneksi dengan database setelah semua task dikerjakan
     finally:
         CONN.close()
