@@ -10,7 +10,7 @@ def input_int(prompt: str):
         # Mengembalikan nilai integer jika data yang dimasukkan benar
         try: 
             return int(input(prompt))
-        # Menmberikan feedback apabila data yang dimasukkan bukan integer
+        # Memberikan feedback apabila data yang dimasukkan bukan integer
         except ValueError as error:
             print(f'{error}. Mohon untuk memasukkan angka. Silakan coba lagi')
 
