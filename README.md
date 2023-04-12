@@ -36,11 +36,11 @@ Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
 6. Jika pelanggan tidak menemukan kesalahan dalam daftar pesanan, pelanggan dapat melakukan check out melalui fungsi *check_out()*. *check_out()* akan menampilkan data pesanan dan pelanggan akan menerima diskon:
     - 5% jika total harga lebih dari 200.000,
     - 6% jika total harga lebih dari 300.000,
-    - 7% jika total harga lebih dari 500.000.
+    - 7% jika total harga lebih dari 500.000.<br>
     Data pesanan akan menampilkan **table_items** yang telah ditambahkan kolom:
     - Diskon
-    - Harga setelah diskon
-    serta akan menampilkan total pembayaran dari seluruh item. 
+    - Harga setelah diskon<br>
+    serta akan menampilkan total pembayaran dari seluruh item.<br> 
     Terakhir, *check_out* akan memanggil fungsi *insert_to_table()* untuk memasukkan data ke dalam database.
 **END** 
 
