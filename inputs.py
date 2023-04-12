@@ -1,4 +1,18 @@
-from get_int import get_int
+def input_int(prompt: str):
+    '''
+    Fungsi untuk menghandle Value Error saat menginput nilai integer
+    args:
+        prompt (str): prompt saat input data
+    return:
+        nilai yang dimasukkan user (int)
+    '''
+    while True:
+        # Mengembalikan nilai integer jika data yang dimasukkan benar
+        try: 
+            return int(input(prompt))
+        # Menmberikan feedback apabila data yang dimasukkan bukan integer
+        except ValueError as error:
+            print(f'{error}. Mohon untuk memasukkan angka. Silakan coba lagi')
 
 def input_item():
     '''
@@ -27,20 +41,20 @@ def input_item():
             nama_item = input('Masukkan nama barang yang ingin dipesan: ').lower()
         
         # Mengambil input jumlah_item
-        jumlah_item = get_int(f'Masukkan jumlah {nama_item} yang ingin dipesan: ')
+        jumlah_item = input_int(f'Masukkan jumlah {nama_item} yang ingin dipesan: ')
 
         # Memastikan jumlah_item lebih dari 0
         while jumlah_item <= 0:
             print(f'Jumlah {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            jumlah_item = get_int(f'Masukkan jumlah {nama_item} yang ingin dipesan: ')
+            jumlah_item = input_int(f'Masukkan jumlah {nama_item} yang ingin dipesan: ')
 
         # Mengambil input harga_item
-        harga_item = get_int(f'Masukkan harga {nama_item} yang ingin dipesan: ')
+        harga_item = input_int(f'Masukkan harga {nama_item} yang ingin dipesan: ')
 
         # Memastikan harga_item lebih dari 0
         while jumlah_item <= 0:
             print(f'Harga {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            harga_item = get_int(f'Masukkan harga {nama_item} yang ingin dipesan: ')
+            harga_item = input_int(f'Masukkan harga {nama_item} yang ingin dipesan: ')
 
         # Memasukkan tiap detail item ke masing-masing list
         nama_items.append(nama_item)
@@ -114,17 +128,17 @@ def input_update_qty(order_items: dict):
     '''
     # Mengambil input nama dan jumlah item
     nama_item = input_update('Masukkan nama barang yang jumlahnya ingin diupdate: ', order_items)
-    jumlah_item = get_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
+    jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
 
     # Memastikan jumlah_item lebih dari 0
     while jumlah_item <= 0:
             print(f'Jumlah {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            jumlah_item = get_int(f'Masukkan jumlah {nama_item} yang baru: ')
+            jumlah_item = input_int(f'Masukkan jumlah {nama_item} yang baru: ')
 
     # Memastikan jumlah_item tidak sama dengan jumlah_item di dalam order_items
     while jumlah_item == order_items[nama_item][0]:
         print(f'Jumlah {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][0]}')
-        jumlah_item = get_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
+        jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
     
     return nama_item, jumlah_item
 
@@ -139,17 +153,17 @@ def input_update_price(order_items: dict):
     '''
     # Mengambil input nama dan harga item
     nama_item = input_update('Masukkan nama barang yang harganya ingin diupdate: ', order_items)
-    harga_item = get_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
+    harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
 
     # Memastikan harga_item lebih dari 0
     while harga_item <= 0:
             print(f'Harga {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            harga_item = get_int(f'Masukkan harga {nama_item} yang baru: ')
+            harga_item = input_int(f'Masukkan harga {nama_item} yang baru: ')
 
     # Memastikan harga_item tidak sama dengan harga_item di dalam order_items
     while harga_item == order_items[nama_item][1]:
         print(f'Harga {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][1]}')
-        harga_item = get_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
+        harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
     
     return nama_item, harga_item
 

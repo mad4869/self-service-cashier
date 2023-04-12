@@ -10,13 +10,7 @@
 
 # CUSTOMER JOURNEY
 
-# 1. Customer membuat ID TRANSAKSI
-    # >>> Membuat OBJEK dari FUNCTION transaction_id = transaction()
-from transaction import transaction
-
-print(transaction())
-
-# 2. Customer memasukkan NAMA ITEM, JUMLAH ITEM, HARGA BARANG
+# 1. Customer memasukkan NAMA ITEM, JUMLAH ITEM, HARGA BARANG
     # >>> Dimasukkan ke dalam LIST sebagai PARAM dari FUNCTION
     # add_item([<nama item>, <jumlah item>, <harga per item>])
 from inputs import input_item

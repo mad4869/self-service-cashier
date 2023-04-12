@@ -1,5 +1,5 @@
 from tabulate import tabulate
-from insert_data import insert_to_table
+from insert_to_table import insert_to_table
 
 def check_out(table_items: dict):
     '''
