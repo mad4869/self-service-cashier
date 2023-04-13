@@ -9,8 +9,4 @@ def database_engine():
     return:
         Fungsi untuk membuat engine database
     '''
-    return create_engine(
-    'sqlite:///C:/Users/LENOVO/OneDrive/Desktop/Engineering/Pacmann/'
-    'Python/Projects/super-cashier/database/project.db', 
-    echo=True
-    )
+    return create_engine('sqlite:///database/project.db', echo=True)

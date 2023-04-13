@@ -99,23 +99,23 @@ def input_update_name(order_items: dict):
         order_items (dict): item yang telah dipesan beserta detailnya
     return:
         nama_item (str): nama item yang lama
-        nama_item_baru (str): nama item yang baru
+        update_nama_item (str): nama item yang baru
     '''
     # Mengambil input nama item yang lama maupun yang baru
     nama_item = input_update('Masukkan nama barang yang ingin diupdate: ', order_items)
-    nama_item_baru = (input('Masukkan nama barang yang baru: ')).title()
+    update_nama_item = (input('Masukkan nama barang yang baru: ')).title()
 
     # Memastikan nama_item_baru tidak kosong
-    while nama_item_baru == '':
+    while update_nama_item == '':
             print('Nama barang yang baru tidak boleh kosong. Silakan coba lagi.')
-            nama_item_baru = input('Masukkan nama barang yang baru: ').title()
+            update_nama_item = input('Masukkan nama barang yang baru: ').title()
 
     # Memastikan nama_item_baru tidak sama dengan nama_item
-    while nama_item_baru == nama_item:
+    while update_nama_item == nama_item:
         print(f'Nama barang yang baru tidak boleh sama dengan sebelumnya: {nama_item}')
-        nama_item_baru = (input('Masukkan nama barang yang baru: ')).title()
+        update_nama_item = (input('Masukkan nama barang yang baru: ')).title()
     
-    return nama_item, nama_item_baru
+    return nama_item, update_nama_item
 
 def input_update_qty(order_items: dict):
     '''
@@ -124,23 +124,23 @@ def input_update_qty(order_items: dict):
         order_items (dict): item yang telah dipesan beserta detailnya
     return:
         nama_item (str): nama item yang jumlahnya ingin diubah
-        jumlah_item (int): jumlah item yang baru
+        update_jumlah_item (int): jumlah item yang baru
     '''
     # Mengambil input nama dan jumlah item
     nama_item = input_update('Masukkan nama barang yang jumlahnya ingin diupdate: ', order_items)
-    jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
+    update_jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
 
     # Memastikan jumlah_item lebih dari 0
-    while jumlah_item <= 0:
+    while update_jumlah_item <= 0:
             print(f'Jumlah {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            jumlah_item = input_int(f'Masukkan jumlah {nama_item} yang baru: ')
+            update_jumlah_item = input_int(f'Masukkan jumlah {nama_item} yang baru: ')
 
     # Memastikan jumlah_item tidak sama dengan jumlah_item di dalam order_items
-    while jumlah_item == order_items[nama_item][0]:
+    while update_jumlah_item == order_items[nama_item][0]:
         print(f'Jumlah {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][0]}')
-        jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
+        update_jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
     
-    return nama_item, jumlah_item
+    return nama_item, update_jumlah_item
 
 def input_update_price(order_items: dict):
     '''
@@ -149,23 +149,23 @@ def input_update_price(order_items: dict):
         order_items (dict): item yang telah dipesan beserta detailnya
     return:
         nama_item (str): nama item yang harganya ingin diubah
-        harga_item (int): harga item yang baru
+        update_harga_item (int): harga item yang baru
     '''
     # Mengambil input nama dan harga item
     nama_item = input_update('Masukkan nama barang yang harganya ingin diupdate: ', order_items)
-    harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
+    update_harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
 
     # Memastikan harga_item lebih dari 0
-    while harga_item <= 0:
+    while update_harga_item <= 0:
             print(f'Harga {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            harga_item = input_int(f'Masukkan harga {nama_item} yang baru: ')
+            update_harga_item = input_int(f'Masukkan harga {nama_item} yang baru: ')
 
     # Memastikan harga_item tidak sama dengan harga_item di dalam order_items
-    while harga_item == order_items[nama_item][1]:
+    while update_harga_item == order_items[nama_item][1]:
         print(f'Harga {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][1]}')
-        harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
+        update_harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
     
-    return nama_item, harga_item
+    return nama_item, update_harga_item
 
 def input_delete(order_items: dict):
     '''
@@ -175,5 +175,4 @@ def input_delete(order_items: dict):
     return:
         nama item yang datanya ingin dihapus (str)
     '''
-    
     return input_update('Masukkan nama barang yang ingin dihapus: ', order_items)

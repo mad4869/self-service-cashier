@@ -24,7 +24,7 @@ def update_item_qty(nama_item: str, update_jumlah_item: int, order_items: dict):
     Fungsi untuk mengupdate jumlah item yang telah dipesan sebelumnya
     args:
         nama_item (str): nama item yang jumlahnya ingin diubah
-        update_jumlah_item (str): jumlah item yang baru
+        update_jumlah_item (int): jumlah item yang baru
         order_items (dict): item yang telah dipesan beserta detailnya
     return:
         None
@@ -45,7 +45,7 @@ def update_item_price(nama_item: str, update_harga_item: int, order_items: dict)
     Fungsi untuk mengupdate harga item yang telah dipesan sebelumnya
     args:
         nama_item (str): nama item yang harganya ingin diubah
-        update_harga_item (str): harga item yang baru
+        update_harga_item (int): harga item yang baru
         order_items (dict): item yang telah dipesan beserta detailnya
     return:
         None
