@@ -1,12 +1,11 @@
 # Super Cashier
 Super Cashier adalah program berbasis python yang dirancang agar seorang pelanggan dapat memasukkan sendiri item serta jumlah dan harga item ke dalam daftar pesanan yang kemudian akan disimpan di dalam SQLite database.
-<br><br>
+
 
 # Background
 Seorang pemilik supermarket besar di salah satu kota di Indonesia memiliki rencana untuk melakukan perbaikan proses bisnis, yaitu membuat sistem kasir self-service dengan harapan:
 - Pelanggan bisa langsung memasukkan item, jumlah item, dan harga item yang dibeli serta beberapa fitur lain.
 - Pelanggan yang tidak berada di kota tersebut bisa membeli barang dari supermarket tersebut.
-<br>
 
 # Requirements
 Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
@@ -17,7 +16,6 @@ Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
 5. Pelanggan dapat menerima diskon jika memenuhi syarat pembelian
 6. Pelanggan dapat melihat total pembayaran dari keseluruhan transaksi
 7. Program dapat menyimpan data pesanan ke dalam database
-<br>
 
 # Alur Program
 ![A flowchart image that explains how the program runs](https://i.imgur.com/APH7xhq.jpg)
@@ -32,7 +30,9 @@ Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
     - update harga item: `input_update_price()` akan meminta pelanggan memasukkan nama item yang harganya ingin diganti dan harga item yang baru. `update_item_price()` akan mengganti harga item di dalam `order_items` sesuai input dari pelanggan.
 4. Jika pelanggan ingin menghapus data di dalam pesanan, pelanggan bisa menggunakan fitur **delete.** Terdapat dua fitur delete:
     - hapus per item: `input_delete()` akan meminta pelanggan memasukkan nama item yang ingin dihapus. `delete_item()` akan menghapus item di dalam `order_items` sesuai input dari pelanggan.
-    - hapus seluruh item: method `reset_transaction()` akan menghapus seluruh isi `order_items`<br> Pelanggan dapat menambahkan item kembali melalui `input_item()`
+    - hapus seluruh item: method `reset_transaction()` akan menghapus seluruh isi `order_items`
+    
+    Pelanggan dapat menambahkan item kembali melalui `input_item()`
 5. Pelanggan dapat melakukan pengecekan terhadap item yang telah dipesan melalui fungsi `check_order()` yang akan memastikan tidak adanya kesalahan input.<br>
 Jika ada, pesan kesalahan ditampilkan dan pelanggan diarahkan kembali menuju `input_item()` <br>
 Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi kolom:
@@ -41,23 +41,27 @@ Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi ko
     - Jumlah item
     - Harga per item
     - Total harga
-6. Jika pelanggan tidak menemukan kesalahan dalam daftar pesanan, pelanggan dapat melakukan check out melalui fungsi `check_out()`<br> 
+6. Jika pelanggan tidak menemukan kesalahan dalam daftar pesanan, pelanggan dapat melakukan check out melalui fungsi `check_out()`<br>
 `check_out()` akan menampilkan data pesanan dan pelanggan akan menerima diskon:
     - 5% jika total harga lebih dari 200.000,
     - 6% jika total harga lebih dari 300.000,
-    - 7% jika total harga lebih dari 500.000.<br>
+    - 7% jika total harga lebih dari 500.000.
+
     Data pesanan akan menampilkan `table_items` yang telah ditambahkan kolom:
     - Diskon
     - Harga setelah diskon<br>
-    serta akan menampilkan total pembayaran dari seluruh item.<br> 
+    
+    Serta akan menampilkan total pembayaran dari seluruh item.<br> 
     Terakhir, `check_out` akan memanggil fungsi `insert_to_table()` untuk memasukkan data ke dalam database.
 
 **END** 
-<br><br>
-# Penjelasan Code
-**inputs.py()**<br>
 
-`input_item()` meminta pelanggan untuk memasukkan nama, jumlah, dan harga item selama pelanggan masih ingin menambah pesanan. Method ini menggunakan bantuan modul `input_int` pada input nilai integer untuk menghandle `ValueError`.
+
+# Penjelasan Code
+**inputs.py**
+
+Modul `inputs` adalah modul yang berisi fungsi-fungsi yang akan meminta input dari pelanggan.<br>
+Di antaranya fungsi `input_item()` yang meminta pelanggan untuk memasukkan nama, jumlah, dan harga item selama pelanggan masih ingin menambah pesanan. Fungsi ini menggunakan bantuan fungsi `input_int()` pada input nilai integer untuk menghandle `ValueError`
 ```
 def input_int(prompt: str):
     '''
@@ -87,18 +91,11 @@ def input_item():
         jumlah_items (list): list yang memuat jumlah item
         harga_items (list): list yang memuat harga item
     '''
-```
-Selama nilai `want_to_order = True`, input dijalankan dan nilainya dimasukkan ke dalam list `nama_items`, `jumlah_items`, dan `harga_items`.
-```
     want_to_order = True
     nama_items = []
     jumlah_items = []
     harga_items = []
-```
-`nama_item` diambil dengan built-in `input()`, dan sebelum dimasukkan ke dalam list dipastikan tidak kosong.<br>
-`jumlah_item` dan `harga_item` diambil dengan method `input_int()` lalu dipastikan lebih dari 0.
-Kemudian memastikan pelanggan ingin menambah pesanan atau tidak: jika ya, looping kembali ke awal; jika tidak, `want_to_order = False` dan looping berhenti.
-```
+
     while want_to_order:
         # Mengambil input nama_item
         nama_item = input('Masukkan nama barang yang ingin dipesan: ').lower()
@@ -139,11 +136,17 @@ Kemudian memastikan pelanggan ingin menambah pesanan atau tidak: jika ya, loopin
                 break
             else:
                 print('Perintah yang Anda masukkan salah. Silakan coba lagi')
-``` 
-Setelah semua item diinput, mengembalikan list `nama_items`, `jumlah_items`, dan `harga_items`.
-```
+    
     return nama_items, jumlah_items, harga_items
 ```
+Selama nilai `want_to_order` = True, input dijalankan dan nilainya dimasukkan ke dalam list `nama_items` `jumlah_items` dan `harga_items`.
+
+`nama_item` diambil dengan built-in `input()`, dan sebelum dimasukkan ke dalam list dipastikan tidak kosong.<br>
+`jumlah_item` dan `harga_item` diambil dengan method `input_int()` lalu dipastikan lebih dari 0.
+Kemudian memastikan pelanggan ingin menambah pesanan atau tidak: jika ya, looping kembali ke awal; jika tidak, `want_to_order = False` dan looping berhenti.
+
+Setelah semua item diinput, mengembalikan list `nama_items`, `jumlah_items`, dan `harga_items`.
+
 ---
 **add_item()**<br>
 `add_item()` menerima argumen berupa list `nama_items`, `jumlah_items`, dan `harga_items` lalu mengembalikannya dalam bentuk dictionary `order_items` yang keynya adalah `nama_item` dan valuenya berupa list berisi `jumlah_item` dan `harga_item`.
