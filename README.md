@@ -3,7 +3,7 @@ Super Cashier adalah program berbasis python yang dirancang agar seorang pelangg
 <br><br>
 
 # Background
-Andaikan seorang pemilik supermarket besar di salah satu kota di Indonesia memiliki rencana untuk melakukan perbaikan proses bisnis, yaitu membuat sistem kasir self-service dengan harapan:
+Seorang pemilik supermarket besar di salah satu kota di Indonesia memiliki rencana untuk melakukan perbaikan proses bisnis, yaitu membuat sistem kasir self-service dengan harapan:
 - Pelanggan bisa langsung memasukkan item, jumlah item, dan harga item yang dibeli serta beberapa fitur lain.
 - Pelanggan yang tidak berada di kota tersebut bisa membeli barang dari supermarket tersebut.
 <br>
@@ -23,22 +23,26 @@ Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
 ![A flowchart image that explains how the program runs](https://i.imgur.com/APH7xhq.jpg)
 **START**
 
-1. Pelanggan akan diminta memasukkan nama item, jumlah item, dan harga item secara berurutan melalui method `input_item()`. `input_item()` akan memastikan apakah pelanggan masih ingin menambah pesanan. Jika ya, pelanggan akan diminta untuk memasukkan nama, jumlah, dan harga item berikutnya. Jika pelanggan sudah selesai memasukkan item, `input_item()` akan berhenti bekerja dan mengembalikan nilai nama, jumlah, dan harga item dalam bentuk **list**.
-2. List nama, jumlah, dan harga item diproses oleh method `add_item()` yang akan memasangkan item dan detail item ke dalam dictionary `order_items`.
-3. Jika pelanggan ingin mengubah data di dalam pesanan, pelanggan bisa menggunakan fitur **update**. Terdapat tiga fitur update:
-    - update nama item: method `input_update_name()` akan meminta pelanggan memasukkan nama item sebelumnya dan nama item yang akan menggantikan. Method `update_item_name()` akan mengganti nama item di dalam `order_items` sesuai input dari pelanggan.
-    - update jumlah item: method `input_update_qty()` akan meminta pelanggan memasukkan nama item yang jumlahnya ingin diganti dan jumlah item yang baru. Method `update_item_qty()` akan mengganti jumlah item di dalam `order_items` sesuai input dari pelanggan.
-    - update harga item: method `input_update_price()` akan meminta pelanggan memasukkan nama item yang harganya ingin diganti dan harga item yang baru. Method `update_item_price()` akan mengganti harga item di dalam `order_items` sesuai input dari pelanggan.
-4. Jika pelanggan ingin menghapus data di dalam pesanan, pelanggan bisa menggunakan fitur **delete**. Terdapat dua fitur delete:
-    - hapus per item: method `input_delete()` akan meminta pelanggan memasukkan nama item yang ingin dihapus. Method `delete_item()` akan menghapus item di dalam `order_items` sesuai input dari pelanggan.
-    - hapus seluruh item: method `reset_transaction()` akan menghapus seluruh isi `order_items`. Pelanggan dapat menambahkan item kembali melalui `input_item()`.
-5. Pelanggan dapat melakukan pengecekan terhadap item yang telah dipesan melalui method `check_order()` yang akan memastikan tidak adanya kesalahan input. Jika ada, pesan kesalahan ditampilkan dan pelanggan diarahkan kembali menuju `input_item()`. Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi kolom:
+1. Pelanggan akan diminta memasukkan nama item, jumlah item, dan harga item secara berurutan melalui fungsi `input_item()`<br>
+`input_item()` akan memastikan apakah pelanggan masih ingin menambah pesanan. Jika ya, pelanggan akan diminta untuk memasukkan nama, jumlah, dan harga item berikutnya. Jika pelanggan sudah selesai memasukkan item, `input_item()` akan berhenti bekerja dan mengembalikan nilai nama, jumlah, dan harga item dalam bentuk list.
+2. List nama, jumlah, dan harga item diproses oleh fungsi `add_item()` yang akan memasangkan item dan detail item ke dalam dictionary `order_items`
+3. Jika pelanggan ingin mengubah data di dalam pesanan, pelanggan bisa menggunakan fitur **update.** Terdapat tiga fitur update:
+    - update nama item: `input_update_name()` akan meminta pelanggan memasukkan nama item sebelumnya dan nama item yang akan menggantikan. `update_item_name()` akan mengganti nama item di dalam `order_items` sesuai input dari pelanggan.
+    - update jumlah item: `input_update_qty()` akan meminta pelanggan memasukkan nama item yang jumlahnya ingin diganti dan jumlah item yang baru. `update_item_qty()` akan mengganti jumlah item di dalam `order_items` sesuai input dari pelanggan.
+    - update harga item: `input_update_price()` akan meminta pelanggan memasukkan nama item yang harganya ingin diganti dan harga item yang baru. `update_item_price()` akan mengganti harga item di dalam `order_items` sesuai input dari pelanggan.
+4. Jika pelanggan ingin menghapus data di dalam pesanan, pelanggan bisa menggunakan fitur **delete.** Terdapat dua fitur delete:
+    - hapus per item: `input_delete()` akan meminta pelanggan memasukkan nama item yang ingin dihapus. `delete_item()` akan menghapus item di dalam `order_items` sesuai input dari pelanggan.
+    - hapus seluruh item: method `reset_transaction()` akan menghapus seluruh isi `order_items`<br> Pelanggan dapat menambahkan item kembali melalui `input_item()`
+5. Pelanggan dapat melakukan pengecekan terhadap item yang telah dipesan melalui fungsi `check_order()` yang akan memastikan tidak adanya kesalahan input.<br>
+Jika ada, pesan kesalahan ditampilkan dan pelanggan diarahkan kembali menuju `input_item()` <br>
+Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi kolom:
     - No.
     - Nama item
     - Jumlah item
     - Harga per item
     - Total harga
-6. Jika pelanggan tidak menemukan kesalahan dalam daftar pesanan, pelanggan dapat melakukan check out melalui method `check_out()`. `check_out()` akan menampilkan data pesanan dan pelanggan akan menerima diskon:
+6. Jika pelanggan tidak menemukan kesalahan dalam daftar pesanan, pelanggan dapat melakukan check out melalui fungsi `check_out()`<br> 
+`check_out()` akan menampilkan data pesanan dan pelanggan akan menerima diskon:
     - 5% jika total harga lebih dari 200.000,
     - 6% jika total harga lebih dari 300.000,
     - 7% jika total harga lebih dari 500.000.<br>
@@ -46,7 +50,7 @@ Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
     - Diskon
     - Harga setelah diskon<br>
     serta akan menampilkan total pembayaran dari seluruh item.<br> 
-    Terakhir, `check_out` akan memanggil method `insert_to_table()` untuk memasukkan data ke dalam database.
+    Terakhir, `check_out` akan memanggil fungsi `insert_to_table()` untuk memasukkan data ke dalam database.
 
 **END** 
 <br><br>
