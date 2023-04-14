@@ -28,4 +28,5 @@ def reset_transaction(order_items: dict):
     '''
     order_items.clear()
 
-    print('Semua barang pesanan anda telah dihapus!')
+    if len(order_items) == 0:
+        print('Semua barang pesanan anda telah dihapus!')

@@ -55,7 +55,7 @@ Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi ko
 **END** 
 <br><br>
 # Penjelasan Code
-**input_item()**<br>
+**inputs.py()**<br>
 
 `input_item()` meminta pelanggan untuk memasukkan nama, jumlah, dan harga item selama pelanggan masih ingin menambah pesanan. Method ini menggunakan bantuan modul `input_int` pada input nilai integer untuk menghandle `ValueError`.
 ```
@@ -442,7 +442,8 @@ def reset_transaction(order_items: dict):
     '''
     order_items.clear()
 
-    print('Semua barang pesanan anda telah dihapus!')
+    if len(order_items) == 0:
+        print('Semua barang pesanan anda telah dihapus!')
 ```
 ---
 **check_order()**
@@ -728,6 +729,7 @@ Pelanggan ingin menambahkan dua item baru dengan fungsi `add_item()`<br>
 Item yang ditambahkan adalah sebagai berikut:
 - Nama Item: Ayam Goreng, Qty: 2, Harga: 20000
 - Nama Item: Pasta Gigi, Qty: 3, Harga: 15000
+
 ![Hasil test case 1](https://i.imgur.com/TPABcM1.png)
 
 **Test Case 2:**
