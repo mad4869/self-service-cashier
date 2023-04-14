@@ -720,27 +720,36 @@ create_table()
 <br>
 
 # Hasil Test Case
-1. Pelanggan ingin menambahkan dua item baru dengan method `add_item()`. Item yang ditambahkan adalah sebagai berikut:
+Test case dilakukan untuk memastikan fungsi-fungsi yang ditulis dapat bekerja dengan baik.
+
+---
+**Test Case 1:**
+Pelanggan ingin menambahkan dua item baru dengan fungsi `add_item()`<br>
+Item yang ditambahkan adalah sebagai berikut:
 - Nama Item: Ayam Goreng, Qty: 2, Harga: 20000
 - Nama Item: Pasta Gigi, Qty: 3, Harga: 15000
 ![Hasil test case 1](https://i.imgur.com/TPABcM1.png)
 
-2. Ternyata pelanggan salah memasukkan salah satu item dari belanjaan, maka pelanggan ingin menghapusnya dengan method `delete_item()`. Item yang ingin dihapuskan adalah Pasta Gigi.
+**Test Case 2:**
+Pelanggan salah memasukkan salah satu item dari belanjaan, maka pelanggan ingin menghapusnya dengan fungsi `delete_item()`<br>
+Item yang ingin dihapuskan adalah **Pasta Gigi.**
 ![Hasil test case 2](https://i.imgur.com/QtTJnu6.png)
 
-3. Ternyata pelanggan salah memasukkan item yang ingin dibelanjakan! Daripada menghapus satu - satu, maka pelanggan ini menghapus semua item yang sudah ditambahkan dengan method `reset_transaction()`.
+**Test Case 3:**
+Pelanggan salah memasukkan item yang ingin dibelanjakan. Daripada menghapus satu - satu, maka pelanggan ingin menghapus semua item yang sudah ditambahkan dengan fungsi `reset_transaction()`
 ![Hasil test case 3](https://i.imgur.com/GJchvUU.png)
 
-4. Setelah pelanggan selesai menambahkan item, ia ingin menghitung total belanja yang harus dibayarkan serta melihat item - item yang dibeli dengan method `check_out()`.<br>
-a. Menginput ulang item berbeda
+**Test Case 4:**
+Setelah pelanggan selesai menambahkan item kembali, ia ingin menghitung total belanja yang harus dibayarkan serta melihat item - item yang dibeli dengan fungsi `check_out()`<br>
+1. Menginput ulang item berbeda
 ![Hasil test case 4](https://i.imgur.com/F17pe1y.png)
-b. Melakukan check order dengan method `check_order()`
+2. Melakukan check order dengan `check_order()`
 ![Hasil test case 4](https://i.imgur.com/hKsbbgf.png)
-c. Melakukan check out dengan method `check_out()`
+3. Melakukan check out dengan `check_out()`
 ![Hasil test case 4](https://i.imgur.com/JJckX2w.png)
-d. Data telah masuk ke dalam tabel di SQLite database
+4. Data telah masuk ke dalam tabel di SQLite database
 ![Hasil test case 4](https://i.imgur.com/qUEc9Ff.png)<br>
-Isi tabel dapat dilihat dengan method `select_table()`.
+Isi tabel dapat dilihat dengan fungsi `select_table()`.
 ```
 def select_table():
     '''
