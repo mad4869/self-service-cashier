@@ -163,9 +163,9 @@ def input_update(prompt: str, order_items: dict):
     
     return nama_item
 ```
-- Fungsi `input_update_name()` `input_update_qty()` dan `input_update_price()` menerima return dari `input_update()` 
+- Fungsi `input_update_name()` `input_update_qty()` `input_update_price()` dan `input_delete()` menerima return dari `input_update()` 
 
-`input_update_name()` mengganti `nama_item` dengan nama item yang baru sesuai input dari pelanggan.
+`input_update_name()` mengembalikan `nama_item` dan nama item yang baru sesuai input dari pelanggan.
 ```
 def input_update_name(order_items: dict):
     '''
@@ -174,27 +174,27 @@ def input_update_name(order_items: dict):
         order_items (dict): item yang telah dipesan beserta detailnya
     return:
         nama_item (str): nama item yang lama
-        nama_item_baru (str): nama item yang baru
+        update_nama_item (str): nama item yang baru
     '''
     # Mengambil input nama item yang lama maupun yang baru
     nama_item = input_update('Masukkan nama barang yang ingin diupdate: ', order_items)
-    nama_item_baru = (input('Masukkan nama barang yang baru: ')).title()
+    update_nama_item = (input('Masukkan nama barang yang baru: ')).title()
 
-    # Memastikan nama_item_baru tidak kosong
-    while nama_item_baru == '':
+    # Memastikan update_nama_item tidak kosong
+    while update_nama_item == '':
             print('Nama barang yang baru tidak boleh kosong. Silakan coba lagi.')
-            nama_item_baru = input('Masukkan nama barang yang baru: ').title()
+            update_nama_item = input('Masukkan nama barang yang baru: ').title()
 
-    # Memastikan nama_item_baru tidak sama dengan nama_item
-    while nama_item_baru == nama_item:
+    # Memastikan update_nama_item tidak sama dengan nama_item
+    while update_nama_item == nama_item:
         print(f'Nama barang yang baru tidak boleh sama dengan sebelumnya: {nama_item}')
-        nama_item_baru = (input('Masukkan nama barang yang baru: ')).title()
+        update_nama_item = (input('Masukkan nama barang yang baru: ')).title()
     
-    return nama_item, nama_item_baru
+    return nama_item, update_nama_item
 ```
-`nama_item_baru` yang didapatkan dari fungsi built-in `input()` dipastikan tidak kosong dan tidak sama dengan `nama_item` <br> Lalu mengembalikan `nama_item` dan `nama_item_baru`
+`update_nama_item` yang didapatkan dari fungsi built-in `input()` dipastikan tidak kosong dan tidak sama dengan `nama_item` <br> Lalu mengembalikan `nama_item` dan `update_nama_item`
 
-`input_update_qty()` mengganti jumlah dari `nama_item` sesuai jumlah baru yang diinput pelanggan.
+`input_update_qty()` mengembalikan `nama_item` dan jumlah baru yang diinput pelanggan.
 ```
 def input_update_qty(order_items: dict):
     '''
@@ -223,7 +223,7 @@ def input_update_qty(order_items: dict):
 ``` 
 `update_jumlah_item` yang didapatkan dari fungsi `input_int()` dipastikan lebih dari 0 dan tidak sama dengan jumlah item sebelumnya. Lalu mengembalikan `nama_item` dan `update_jumlah_item`
 
-`input_update_price()` mengganti harga dari `nama_item` sesuai harga baru yang diinput pelanggan.
+`input_update_price()` mengembalikan `nama_item` dan harga baru yang diinput pelanggan.
 ```
 def input_update_price(order_items: dict):
     '''
@@ -251,6 +251,20 @@ def input_update_price(order_items: dict):
     return nama_item, update_harga_item
 ```
 `update_harga_item` yang didapatkan dari fungsi `input_int()` dipastikan lebih dari 0 dan tidak sama dengan harga item sebelumnya. Lalu mengembalikan `nama_item` dan `update_harga_item`
+
+`input_delete()` mengembalikan nama item yang datanya ingin dihapus.
+```
+def input_delete(order_items: dict):
+    '''
+    Fungsi untuk mengembalikan nama item yang datanya ingin dihapus
+    args:
+        order_items (dict): item yang telah dipesan beserta detailnya
+    return:
+        nama item yang datanya ingin dihapus (str)
+    '''
+    return input_update('Masukkan nama barang yang ingin dihapus: ', order_items)
+```
+Langsung mengembalikan nilai yang didapatkan melalui `input_update()`
 
 ---
 **add_item.py**
@@ -280,9 +294,10 @@ def add_item(nama_items: list, jumlah_items: list, harga_items: list):
 Melakukan looping sesuai banyaknya item yang sudah dimasukkan pelanggan, memasangkan key `nama_item` dengan list `[jumlah_item, harga_item]` di dalam `order_items` dan mengembalikan `order_items`
 
 ---
-**update_item_name()**
+**update_item.py**
 
-`update_item_name()` menerima `nama_item`, `nama_item_baru`, dan `order_items` sebagai argumen, lalu mengganti key `nama_item` di dalam `order_items` dengan key `nama_item_baru`.
+Modul `update_item` berisi fungsi-fungsi yang menerima return dari fungsi-fungsi input update sesuai detail item yang ingin diupdate.
+- `update_item_name()` menerima `nama_item` `update_nama_item` dan `order_items` sebagai argumen, lalu mengganti key `nama_item` di dalam `order_items` dengan key `update_nama_item`
 ```
 def update_item_name(nama_item: str, update_nama_item: str, order_items: dict):
     '''
@@ -294,11 +309,6 @@ def update_item_name(nama_item: str, update_nama_item: str, order_items: dict):
     return:
         None
     '''
-```
-Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items`.<br>
-Jika tidak ada error, menghapus key `nama_item` lalu mengassign valuenya ke key `nama_item_baru`.<br>
-Jika ada error, menampilkan pesan kesalahan.
-```
     # Memastikan nama_item ada di dalam order_items
     # Apabila ada, mengganti nama item tersebut
     try:
@@ -310,12 +320,9 @@ Jika ada error, menampilkan pesan kesalahan.
     except KeyError as error:
         print(f'{update_nama_item} gagal ditambahkan. {error}. Silakan coba lagi.')
 ```
+Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items` <br> Jika tidak ada error, menghapus key `nama_item` dengan method `pop()` lalu mengassign value yang direturn kepada key `update_nama_item` <br> Jika ada error, menampilkan pesan kesalahan.
 
-
-
----
-**update_item_qty()**<br>
-`update_item_qty()` menerima `nama_item`, `update_jumlah_item`, dan `order_items` sebagai argumen, lalu mengganti jumlah `nama_item` di dalam `order_items` dengan `update_jumlah_item`.
+- `update_item_qty()` menerima `nama_item` `update_jumlah_item` dan `order_items` sebagai argumen, lalu mengganti jumlah `nama_item` di dalam `order_items` dengan `update_jumlah_item`
 ```
 def update_item_qty(nama_item: str, update_jumlah_item: int, order_items: dict):
     '''
@@ -327,11 +334,6 @@ def update_item_qty(nama_item: str, update_jumlah_item: int, order_items: dict):
     return:
         None
     '''
-```
-Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items`.<br>
-Jika tidak ada error, mengassign value jumlah item pada key `nama_item` kepada `update_jumlah_item`.<br>
-Jika ada error, menampilkan pesan kesalahan.
-```
     # Memastikan nama_item ada di dalam order_items
     # Apabila ada, mengganti jumlah item tersebut
     try:
@@ -343,11 +345,9 @@ Jika ada error, menampilkan pesan kesalahan.
     except KeyError as error:
         print(f'Pergantian jumlah {nama_item.lower()} gagal. {error}. Silakan coba lagi.')
 ```
+Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items` <br> Jika tidak ada error, mengassign value jumlah item pada key `nama_item` kepada `update_jumlah_item` <br> Jika ada error, menampilkan pesan kesalahan.
 
-
----
-**update_item_price()**<br>
-`update_item_price()` menerima `nama_item`, `update_harga_item`, dan `order_items` sebagai argumen, lalu mengganti harga `nama_item` di dalam `order_items` dengan `update_harga_item`.
+- `update_item_price()` menerima `nama_item` `update_harga_item` dan `order_items` sebagai argumen, lalu mengganti harga `nama_item` di dalam `order_items` dengan `update_harga_item`
 ```
 def update_item_price(nama_item: str, update_harga_item: int, order_items: dict):
     '''
@@ -359,41 +359,24 @@ def update_item_price(nama_item: str, update_harga_item: int, order_items: dict)
     return:
         None
     '''
-```
-Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items`.<br>
-Jika tidak ada error, mengassign value harga item pada key `nama_item` kepada `update_harga_item`.<br>
-Jika ada error, menampilkan pesan kesalahan.
-```
     # Memastikan nama_item ada di dalam order_items
-    # Apabila ada, mengganti nama item tersebut
+    # Apabila ada, mengganti jumlah item tersebut
     try:
-        order_items[update_nama_item] = order_items.pop(nama_item)
-
-        print(f'{update_nama_item} berhasil ditambahkan!\n'
+        order_items[nama_item][0] = update_jumlah_item
+        
+        print(f'Jumlah {nama_item.lower()} berhasil diubah!\n'
         f'Daftar barang yang Anda pesan adalah sebagai berikut: {order_items}')
     # Apabila tidak ada, menampilkan pesan kesalahan
     except KeyError as error:
-        print(f'{update_nama_item} gagal ditambahkan. {error}. Silakan coba lagi.')
+        print(f'Pergantian jumlah {nama_item.lower()} gagal. {error}. Silakan coba lagi.')
 ```
+Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items` <br> Jika tidak ada error, mengassign value harga item pada key `nama_item` kepada `update_harga_item` <br> Jika ada error, menampilkan pesan kesalahan.
+
 ---
-**input_delete()**<br>
-`input_delete()` meminta pelanggan memasukkan nama item yang datanya ingin dihapus.
-```
-def input_delete(order_items: dict):
-    '''
-    Fungsi untuk mengembalikan nama item yang datanya ingin dihapus
-    args:
-        order_items (dict): item yang telah dipesan beserta detailnya
-    return:
-        nama item yang datanya ingin dihapus (str)
-    '''
-```
-Langsung mengembalikan item yang didapatkan melalui method `input_update()`.
-```
-    return input_update('Masukkan nama barang yang ingin dihapus: ', order_items)
-```
-***delete_item()**<br>
-`delete_item()` menerima `nama_item` dan `order_items` sebagai argumen, lalu menghapus data `nama_item` di dalam `order_items`.
+**delete_item.py**
+
+Modul `delete_item` berisi fungsi-fungsi yang akan menghapus data dari `order_items`
+- Fungsi `delete_item()` menerima `nama_item` dan `order_items` sebagai argumen, lalu menghapus sebaris data di dalam `order_items` dengan key `nama_item` 
 ```
 def delete_item(nama_item: str, order_items: dict):
     '''
@@ -404,11 +387,6 @@ def delete_item(nama_item: str, order_items: dict):
     return:
         None
     '''
-```
-Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items`.<br>
-Jika tidak ada error, menghapus data di dalam `order_items` dengan key `nama_item`.<br>
-Jika ada error, menampilkan pesan kesalahan.
-```
     # Memastikan nama_item ada di dalam order_items
     # Apabila ada, menghapus data item tersebut 
     try:
@@ -420,9 +398,9 @@ Jika ada error, menampilkan pesan kesalahan.
     except KeyError as error:
         print(f'Penghapusan gagal. {error}. Silakan coba lagi.')
 ```
----
-**reset_transaction()**<br>
-`reset_transaction()` menerima `order_items` sebagai argumen lalu mengosongkan isinya.
+Kode dijalankan dalam blok `try` dan `except` untuk menghandle `KeyError` apabila key `nama_item` tidak ditemukan di dalam `order_items` <br> Jika tidak ada error, menghapus data di dalam `order_items` dengan key `nama_item` melalui method `pop()` <br> Jika ada error, menampilkan pesan kesalahan.
+
+- Fungsi `reset_transaction()` menerima `order_items` sebagai argumen lalu mengosongkan isinya.
 ```
 def reset_transaction(order_items: dict):
     '''
@@ -437,9 +415,12 @@ def reset_transaction(order_items: dict):
     if len(order_items) == 0:
         print('Semua barang pesanan anda telah dihapus!')
 ```
+Setelah menghapus semua data `order_items` dengan method `clear()` memastikan nilai `len(order_items) == 0` lalu menampilkan pesan konfirmasi.
+
 ---
-**check_order()**
-`check_order()` menerima `order_items` sebagai argumen lalu menampilkannya dalam bentuk tabel dengan bantuan modul `tabulate`.
+**check_order.py**
+
+Modul `check_order` berisi fungsi yang menerima `order_items` sebagai argumen lalu menampilkannya dalam bentuk tabel dengan bantuan modul `tabulate`
 ```
 from tabulate import tabulate
 
@@ -451,24 +432,16 @@ def check_order(order_items: dict):
     return:
         table_items (dict): daftar pesanan dalam bentuk tabel
     '''
-```
-Pertama memeriksa apakah ada data yang missing dari `order_items` dan akan menampilkan pesan kesalahan apabila:
-- ada key yang kosong
-- ada jumlah atau harga item yang missing
-- ada jumlah atau harga item yang bernilai 0 atau None
-```
     # Menampilkan pesan kesalahan apabila terdapat data yang missing di dalam order_items
     for key, value in order_items.items():
         if key == '' or len(value) != 2 or 0 in value or None in value:
             print('Terdapat kesalahan dalam input data. Silakan coba lagi.')
             return
 ```
-Jika tidak ada error, data di dalam `order_items` akan diubah menjadi `tabel_items` dengan kolom-kolom:
-- No.
-- Nama Item
-- Jumlah Item
-- Harga Item
-- Total Harga (Harga Item dikalikan Jumlah Item)
+Pertama, memeriksa apakah ada data yang missing dari `order_items` dan akan menampilkan pesan kesalahan apabila:
+- ada key yang kosong
+- ada jumlah atau harga item yang missing
+- ada jumlah atau harga item yang bernilai 0 atau None
 ```
     # Membuat tabel berdasarkan data di dalam order_items
     table_items = {}
@@ -480,19 +453,30 @@ Jika tidak ada error, data di dalam `order_items` akan diubah menjadi `tabel_ite
         [(list(order_items.values())[i][0]) * (list(order_items.values())[i][1]) 
         for i in range(len(order_items))]
     )
-```
-Terakhir, menampilkan pesan tidak ada kesalahan dan `tabel_items` dalam bentuk tabel melalui `tabulate`, lalu mengembalikan `tabel_items`.
-```
+
     # Menampilkan pesan tidak ada kesalahan dan tabulasi data pesanan
     print('Tidak ada kesalahan dalam input data. Silakan cek kembali pesanan Anda:')
     print(tabulate(table_items, headers='keys', tablefmt='grid'))
 
     return table_items
 ```
+Jika tidak ada error, data di dalam `order_items` akan diubah menjadi `tabel_items` dengan kolom-kolom:
+- No.
+- Nama Item
+- Jumlah Item
+- Harga Item
+- Total Harga (Harga Item dikalikan Jumlah Item)
+
+Terakhir, menampilkan pesan tidak ada kesalahan dan `tabel_items` dalam bentuk tabel melalui `tabulate` lalu mengembalikan `tabel_items`
+
 ---
-**check_out()**
-`check_out()` menerima `table_items` sebagai argumen, lalu memasukkannya ke dalam SQLite database dengan bantuan method `insert_to_table()`.
+**check_out.py**
+
+Modul `check_out` berisi fungsi yang menerima `table_items` sebagai argumen, lalu memasukkannya ke dalam SQLite database dengan bantuan fungsi dari modul `insert_to_table`
 ```
+from tabulate import tabulate
+from insert_to_table import insert_to_table
+
 def check_out(table_items: dict):
     '''
     Fungsi untuk menampilkan keseluruhan data pesanan dan memasukkannya ke dalam database
@@ -501,19 +485,10 @@ def check_out(table_items: dict):
     return:
         None
     '''
-```
-Sebelum data dimasukkan ke database, pelanggan akan menerima diskon sesuai ketentuan:
-- 5% jika total harga per item lebih dari 200.000
-- 6% jika total harga per item lebih dari 300.000
-- 7% jika total harga per item lebih dari 500.000
-Diskon dan harga setelah diskon yang diterima dimasukkan ke dalam list.
-```
     diskon = []
     harga_diskon = []
-```
-Malakukan looping sesuai banyaknya item, lalu diskon tiap item dikalkulasi dan hasilnya dimasukkan ke dalam list.
-```
-    for i in range(len(table_items['No'])):
+
+        for i in range(len(table_items['No'])):
         diskon_per_item = 0
         if table_items['Total Harga'][i] > 500_000:
             diskon_per_item = round(0.07 * table_items['Total Harga'][i])
@@ -529,28 +504,37 @@ Malakukan looping sesuai banyaknya item, lalu diskon tiap item dikalkulasi dan h
         diskon.append(diskon_per_item)
         harga_diskon.append(harga_diskon_per_item)
 ```
-List diskon dan harga setelah diskon dimasukkan ke dalam `table_items`.
+Sebelum data dimasukkan ke database, pelanggan akan menerima diskon sesuai ketentuan:
+- 5% jika total harga per item lebih dari 200.000
+- 6% jika total harga per item lebih dari 300.000
+- 7% jika total harga per item lebih dari 500.000
+
+Diskon dan harga setelah diskon yang diterima akan dimasukkan ke dalam list.
+
+Melakukan looping sesuai banyaknya item, lalu diskon tiap item dikalkulasi dan hasilnya dimasukkan ke dalam list `diskon` sedangkan harga item yang telah dikurangi diskon dimasukkan ke list `harga_diskon`
 ```
     # Menambahkan list diskon dan harga setelah diskon ke dalam table_items
     table_items['Diskon'] = diskon
     table_items['Harga Setelah Diskon'] = harga_diskon
-```
-Menampilkan keseluruhan transaksi di `table_items` serta total pembayaran dari semua item.
-```
+
     # Menampilkan tabulasi keseluruhan data pesanan dan total harga yang harus dibayarkan
     print(f'Detail transaksi Anda adalah sebagai berikut:')
     print(tabulate(table_items, headers='keys', tablefmt='grid'))
     print(f'Total pembayaran Anda adalah sebesar: {sum(harga_diskon)}')
-```
-Terakhir, memasukkan data di dalam `table_items` ke SQLite database melalui method `insert_to_table()`.
-```
+
     # Mengeksekusi fungsi untuk memasukkan data ke dalam database
     insert_to_table(table_items)
 ```
+List `diskon` dan `harga_diskon` dimasukkan ke `table_items` di dalam kolom Diskon dan Harga Setelah Diskon.
+
+Menampilkan keseluruhan transaksi di `table_items` dengan bantuan `tabulate` serta total pembayaran dari semua item dengan fungsi built-in `sum()`
+
+Terakhir, memasukkan data di dalam `table_items` ke SQLite database melalui fungsi `insert_to_table()`
+
 ---
-**insert_to_table()**<br>
-`insert_to_table()` menerima `table_items` sebagai argumen, lalu memasukkannya ke dalam SQLite database dengan bantuan modul `sqlalchemy`.<br>
-Engine database dibuat terpisah di dalam modul `database_engine`.
+**insert_to_table.py**
+
+Modul `insert_to_table` berisi fungsi yang menerima `table_items` sebagai argumen, lalu memasukkannya ke dalam SQLite database dengan bantuan modul `sqlalchemy` <br> Engine database dibuat terpisah di dalam modul `database_engine`
 ```
 from sqlalchemy import create_engine
 
@@ -577,24 +561,9 @@ def insert_to_table(table_items: dict):
     return:
         None
     '''
-```
-Membuat koneksi ke database dengan memanggil engine dan method `connect()`.
-```
     # Membangun koneksi dengan database
     CONN = ENGINE().connect()
-```
-Membuat `insert_query` dengan bantuan method `text()` dari modul `sqlalchemy`.<br>
-Data akan dimasukkan ke dalam tabel `items` dengan kolom-kolom:
-- item_id (diomit di dalam query karena autoincrement)
-- nama_item
-- jumlah_item
-- harga_item
-- total_harga
-- diskon
-- harga_diskon
 
-Masing-masing values ditandai dengan nama kolom masing-masing.
-```
     # Membuat query untuk menyisipkan data ke dalam tabel
     insert_query = text(
         """
@@ -617,8 +586,18 @@ Masing-masing values ditandai dengan nama kolom masing-masing.
         """
     )
 ```
-Kode dijalankan dalam blok `try` dan `except` untuk menghandle error yang terjadi pada saat query dieksekusi.<br>
-Jika tidak ada error, melakukan looping pada list yang berada di dalam masing-masing kolom `table_items` dengan bantuan built-in `zip()`.
+Pertama membuat koneksi ke database dengan memanggil engine dan method `connect()`
+
+Membuat `insert_query` dengan bantuan fungsi `text()` dari modul `sqlalchemy` <br> Data akan dimasukkan ke dalam tabel `items` dengan kolom-kolom:
+- item_id (diomit di dalam query karena autoincrement)
+- nama_item
+- jumlah_item
+- harga_item
+- total_harga
+- diskon
+- harga_diskon
+
+Masing-masing values ditandai dengan nama kolom masing-masing.
 ```
     try:
         # Mengakses data di list yang berada di masing-masing kolom tabel
@@ -629,11 +608,7 @@ Jika tidak ada error, melakukan looping pada list yang berada di dalam masing-ma
             table_items['Total Harga'],
             table_items['Diskon'],
             table_items['Harga Setelah Diskon']):
-```
-Di dalam looping, melakukan eksekusi query dengan method `execute()` dengan argumen `insert_query` dan dictionary dengan:<br>
-key: nama kolom tabel `items` yang telah digunakan untuk menandai values<br>
-value: variabel yang menyimpan data dari `table_items`.
-```
+
             # Mengeksekusi query
             CONN.execute(insert_query, {
                 'nama_item': nama_item,
@@ -643,28 +618,36 @@ value: variabel yang menyimpan data dari `table_items`.
                 'diskon': diskon,
                 'harga_diskon': harga_diskon
                 })
-```
-Setelah looping selesai, melakukan `commit` untuk menyimpan perubahan di dalam database.
-```
         # Melakukan commit untuk menyimpan perubahan di dalam database
         CONN.commit()
 ```
-Jika ada error, menampilkan pesan kesalahan dan melakukan `rollback` untuk mengembalikan database ke keadaan semula.
+Kode dijalankan dalam blok `try` dan `except` untuk menghandle error yang terjadi pada saat query dieksekusi. <br> Jika tidak ada error, melakukan looping pada list yang berada di dalam masing-masing kolom `table_items` dengan bantuan fungsi built-in `zip()`
+
+Di dalam looping, melakukan eksekusi query dengan method `execute()` dengan argumen `insert_query` dan dictionary dengan:<br>
+key: nama kolom tabel `items` yang telah digunakan untuk menandai values<br>
+value: variabel yang menyimpan data dari `table_items`.
+
+Setelah looping selesai, melakukan **commit** untuk menyimpan perubahan di dalam database dengan method `commit()`
 ```
     except Exception as error:
         print(error)
 
         # Apabila ada kesalahan, mengembalikan database ke keadaan semula
         CONN.rollback()
-```
-Menutup koneksi dengan database setelah semua task dikerjakan.
-```
+    
     # Menutup koneksi dengan database setelah semua task dikerjakan
     finally:
         CONN.close()
 ```
-**PS:** Sebelum menjalankan `insert_to_table()`, tabel di dalam SQLite database telah dibuat dengan method `create_table()`.
+Jika ada error, menampilkan pesan kesalahan dan melakukan **rollback** untuk mengembalikan database ke keadaan semula dengan method `rollback()`
+
+Menutup koneksi dengan database setelah semua task dikerjakan dengan method `close()`
+
+**PS:** Sebelum menjalankan `insert_to_table()`, tabel `items` di dalam SQLite database telah dibuat dengan fungsi di dalam modul `create_table`
 ```
+from sqlalchemy import text
+from database_engine import database_engine as ENGINE
+
 def create_table():
     '''
     Fungsi untuk membuat tabel di dalam database
@@ -710,41 +693,45 @@ def create_table():
 
 create_table()
 ```
-<br>
+
 
 # Hasil Test Case
 Test case dilakukan untuk memastikan fungsi-fungsi yang ditulis dapat bekerja dengan baik.
 
----
-**Test Case 1:**
-Pelanggan ingin menambahkan dua item baru dengan fungsi `add_item()`<br>
-Item yang ditambahkan adalah sebagai berikut:
+
+**Test Case 1:** <br> Pelanggan ingin menambahkan dua item baru dengan fungsi `add_item()` <br> Item yang ditambahkan adalah sebagai berikut:
 - Nama Item: Ayam Goreng, Qty: 2, Harga: 20000
 - Nama Item: Pasta Gigi, Qty: 3, Harga: 15000
 
+Hasil test case:
 ![Hasil test case 1](https://i.imgur.com/TPABcM1.png)
 
-**Test Case 2:**
-Pelanggan salah memasukkan salah satu item dari belanjaan, maka pelanggan ingin menghapusnya dengan fungsi `delete_item()`<br>
-Item yang ingin dihapuskan adalah **Pasta Gigi.**
+**Test Case 2:** <br> Pelanggan salah memasukkan salah satu item dari belanjaan, maka pelanggan ingin menghapusnya dengan fungsi `delete_item()`<br> Item yang ingin dihapuskan adalah **Pasta Gigi.**
+
+Hasil test case:
 ![Hasil test case 2](https://i.imgur.com/QtTJnu6.png)
 
-**Test Case 3:**
-Pelanggan salah memasukkan item yang ingin dibelanjakan. Daripada menghapus satu - satu, maka pelanggan ingin menghapus semua item yang sudah ditambahkan dengan fungsi `reset_transaction()`
+**Test Case 3:** <br> Pelanggan salah memasukkan item yang ingin dibelanjakan. Daripada menghapus satu - satu, maka pelanggan ingin menghapus semua item yang sudah ditambahkan dengan fungsi `reset_transaction()`
+
+Hasil test case:
 ![Hasil test case 3](https://i.imgur.com/GJchvUU.png)
 
-**Test Case 4:**
-Setelah pelanggan selesai menambahkan item kembali, ia ingin menghitung total belanja yang harus dibayarkan serta melihat item - item yang dibeli dengan fungsi `check_out()`<br>
+**Test Case 4:** <br> Setelah pelanggan selesai menambahkan item kembali, ia ingin menghitung total belanja yang harus dibayarkan serta melihat item-item yang dibeli dengan fungsi `check_out()`
+
+Hasil test case:
 1. Menginput ulang item berbeda
 ![Hasil test case 4](https://i.imgur.com/F17pe1y.png)
 2. Melakukan check order dengan `check_order()`
 ![Hasil test case 4](https://i.imgur.com/hKsbbgf.png)
 3. Melakukan check out dengan `check_out()`
 ![Hasil test case 4](https://i.imgur.com/JJckX2w.png)
-4. Data telah masuk ke dalam tabel di SQLite database
+4. Data telah masuk ke dalam tabel `items` di SQLite database
 ![Hasil test case 4](https://i.imgur.com/qUEc9Ff.png)<br>
-Isi tabel dapat dilihat dengan fungsi `select_table()`
+Isi tabel dapat dilihat dengan fungsi pada modul `select_table`
 ```
+from sqlalchemy import text
+from database_engine import database_engine as ENGINE
+
 def select_table():
     '''
     Fungsi untuk melihat data tabel yang berada di dalam database
@@ -776,7 +763,6 @@ def select_table():
 
 
 # Conclusion
-Program Super Cashier adalah program yang dirancang untuk memasukkan input dari pelanggan dan secara otomatis memasukkannya ke dalam SQLite database.<br>
-Hal-hal yang dapat dilakukan untuk memperbaiki program adalah:
-1. Merefactor script menjadi script yang ditulis dalam bentuk Object Oriented Programming (OOP).
+Program Super Cashier adalah program yang dirancang untuk memasukkan input dari pelanggan dan secara otomatis memasukkannya ke dalam SQLite database.<br> Hal-hal yang dapat dilakukan untuk memperbaiki program adalah:
+1. Merefaktorisasi script menjadi script yang ditulis dalam bentuk Object Oriented Programming (OOP).
 2. Menambahkan fitur tambahan seperti fitur yang menghandle pembayaran transaksi.
