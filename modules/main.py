@@ -66,7 +66,7 @@ from check_order import check_order
 
 table_items = check_order(order_items)
 
-# 6. Customer dapat MENGHITUNG TOTAL BELANJA
+# 5. Customer dapat MENGHITUNG TOTAL BELANJA
     # >>> Menggunakan FUNCTION check_out()
         # >>> Jika TOTAL > 200_000 -> DISKON 5%
         # >>> Jika TOTAL > 300_000 -> DISKON 6%
@@ -84,3 +84,10 @@ table_items = check_order(order_items)
 from check_out import check_out
 
 check_out(table_items)
+
+# 6. Memastikan item telah masuk ke dalam database
+    # >>> Menggunakan FUNCTION select_table()
+
+from select_table import select_table
+
+select_table()
