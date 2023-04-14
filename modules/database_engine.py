@@ -9,4 +9,4 @@ def database_engine():
     return:
         Fungsi untuk membuat engine database
     '''
-    return create_engine('sqlite:///database/project.db', echo=True)
+    return create_engine('sqlite:///../database/project.db', echo=True)
