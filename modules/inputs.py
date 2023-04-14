@@ -105,12 +105,12 @@ def input_update_name(order_items: dict):
     nama_item = input_update('Masukkan nama barang yang ingin diupdate: ', order_items)
     update_nama_item = (input('Masukkan nama barang yang baru: ')).title()
 
-    # Memastikan nama_item_baru tidak kosong
+    # Memastikan update_nama_item tidak kosong
     while update_nama_item == '':
             print('Nama barang yang baru tidak boleh kosong. Silakan coba lagi.')
             update_nama_item = input('Masukkan nama barang yang baru: ').title()
 
-    # Memastikan nama_item_baru tidak sama dengan nama_item
+    # Memastikan update_nama_item tidak sama dengan nama_item
     while update_nama_item == nama_item:
         print(f'Nama barang yang baru tidak boleh sama dengan sebelumnya: {nama_item}')
         update_nama_item = (input('Masukkan nama barang yang baru: ')).title()
