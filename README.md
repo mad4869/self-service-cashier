@@ -33,16 +33,13 @@ Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
     - hapus seluruh item: method `reset_transaction()` akan menghapus seluruh isi `order_items`
     
     Pelanggan dapat menambahkan item kembali melalui `input_item()`
-5. Pelanggan dapat melakukan pengecekan terhadap item yang telah dipesan melalui fungsi `check_order()` yang akan memastikan tidak adanya kesalahan input.<br>
-Jika ada, pesan kesalahan ditampilkan dan pelanggan diarahkan kembali menuju `input_item()` <br>
-Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi kolom:
+5. Pelanggan dapat melakukan pengecekan terhadap item yang telah dipesan melalui fungsi `check_order()` yang akan memastikan tidak adanya kesalahan input. <br> Jika ada, pesan kesalahan ditampilkan dan pelanggan diarahkan kembali menuju `input_item()` <br> Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi kolom:
     - No.
     - Nama item
     - Jumlah item
     - Harga per item
     - Total harga
-6. Jika pelanggan tidak menemukan kesalahan dalam daftar pesanan, pelanggan dapat melakukan check out melalui fungsi `check_out()`<br>
-`check_out()` akan menampilkan data pesanan dan pelanggan akan menerima diskon:
+6. Jika pelanggan tidak menemukan kesalahan dalam daftar pesanan, pelanggan dapat melakukan check out melalui fungsi `check_out()` <br> `check_out()` akan menampilkan data pesanan dan pelanggan akan menerima diskon:
     - 5% jika total harga lebih dari 200.000,
     - 6% jika total harga lebih dari 300.000,
     - 7% jika total harga lebih dari 500.000.
@@ -51,8 +48,7 @@ Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi ko
     - Diskon
     - Harga setelah diskon<br>
     
-    Serta akan menampilkan total pembayaran dari seluruh item.<br> 
-    Terakhir, `check_out` akan memanggil fungsi `insert_to_table()` untuk memasukkan data ke dalam database.
+    Serta akan menampilkan total pembayaran dari seluruh item. <br> Terakhir, `check_out` akan memanggil fungsi `insert_to_table()` untuk memasukkan data ke dalam database.
 
 **END** 
 
@@ -60,8 +56,8 @@ Jika tidak ada, data pesanan akan ditampilkan dalam `table_items` yang berisi ko
 # Penjelasan Code
 **inputs.py**
 
-Modul `inputs` adalah modul yang berisi fungsi-fungsi yang akan meminta input dari pelanggan.<br>
-Di antaranya fungsi `input_item()` yang meminta pelanggan untuk memasukkan nama, jumlah, dan harga item selama pelanggan masih ingin menambah pesanan. Fungsi ini menggunakan bantuan fungsi `input_int()` pada input nilai integer untuk menghandle `ValueError`
+Modul `inputs` adalah modul yang berisi fungsi-fungsi yang akan meminta input dari pelanggan.
+- Fungsi `input_item()` meminta pelanggan untuk memasukkan nama, jumlah, dan harga item selama pelanggan masih ingin menambah pesanan. Fungsi ini menggunakan bantuan fungsi `input_int()` pada input nilai integer untuk menghandle `ValueError`
 ```
 def input_int(prompt: str):
     '''
@@ -139,45 +135,15 @@ def input_item():
     
     return nama_items, jumlah_items, harga_items
 ```
-Selama nilai `want_to_order` = True, input dijalankan dan nilainya dimasukkan ke dalam list `nama_items` `jumlah_items` dan `harga_items`.
+Selama nilai `want_to_order = True` input dijalankan dan nilainya dimasukkan ke dalam list `nama_items` `jumlah_items` dan `harga_items`
 
-`nama_item` diambil dengan built-in `input()`, dan sebelum dimasukkan ke dalam list dipastikan tidak kosong.<br>
-`jumlah_item` dan `harga_item` diambil dengan method `input_int()` lalu dipastikan lebih dari 0.
+`nama_item` diambil dengan fungsi built-in `input()` dan sebelum dimasukkan ke dalam list dipastikan tidak kosong.<br>
+`jumlah_item` dan `harga_item` diambil dengan `input_int()` lalu dipastikan lebih dari 0.
 Kemudian memastikan pelanggan ingin menambah pesanan atau tidak: jika ya, looping kembali ke awal; jika tidak, `want_to_order = False` dan looping berhenti.
 
-Setelah semua item diinput, mengembalikan list `nama_items`, `jumlah_items`, dan `harga_items`.
+Setelah semua item diinput, mengembalikan list `nama_items` `jumlah_items` dan `harga_items`
 
----
-**add_item()**<br>
-`add_item()` menerima argumen berupa list `nama_items`, `jumlah_items`, dan `harga_items` lalu mengembalikannya dalam bentuk dictionary `order_items` yang keynya adalah `nama_item` dan valuenya berupa list berisi `jumlah_item` dan `harga_item`.
-```
-def add_item(nama_items: list, jumlah_items: list, harga_items: list):
-    '''
-    Fungsi untuk memasukkan masing-masing item ke dalam daftar pesanan
-    args:
-        nama_items (list): nama item yang dipesan
-        jumlah_items (list): jumlah item yang dipesan
-        harga_items (list): harga item yang dipesan
-    return:
-        order_items (dict): item yang telah dipesan beserta detailnya
-    '''
-```
-Melakukan looping sesuai banyaknya item yang sudah dimasukkan pelanggan, memasangkan key `nama_item` dengan list `[jumlah_item, harga_item]` di dalam `order_items`, dan mengembalikan `order_items`.
-```
-    order_items = {}
-    
-    # Memasangkan detail item dengan nama itemnya
-    for i in range(len(nama_items)):
-        order_items[nama_items[i].title()] = [jumlah_items[i], harga_items[i]]
-    
-    print(f'Daftar barang yang Anda pesan adalah sebagai berikut: {order_items}')
-
-    return order_items
-```
----
-**input_update_name()**<br>
-`input_update_name()` meminta pelanggan memasukkan nama item yang ingin diganti dan nama item baru secara berurutan.<br>
-Method ini menggunakan bantuan modul `input_update` untuk memverifikasi apakah nama item yang ingin diganti ada di dalam `order_items`.
+- Fungsi `input_update()` meminta input nama item yang datanya ingin diupdate. Lalu `input_update()` memverifikasi apakah nama item tersebut ada di dalam `order_items` <br> Jika ada, mengembalikan `nama_item`
 ```
 def input_update(prompt: str, order_items: dict):
     '''
@@ -197,6 +163,9 @@ def input_update(prompt: str, order_items: dict):
     
     return nama_item
 ```
+- Fungsi `input_update_name()` `input_update_qty()` dan `input_update_price()` menerima return dari `input_update()` 
+
+`input_update_name()` mengganti `nama_item` dengan nama item yang baru sesuai input dari pelanggan.
 ```
 def input_update_name(order_items: dict):
     '''
@@ -207,11 +176,6 @@ def input_update_name(order_items: dict):
         nama_item (str): nama item yang lama
         nama_item_baru (str): nama item yang baru
     '''
-```
-`nama_item` didapatkan dengan method `input_update()`.<br> 
-`nama_item_baru` didapatkan dengan built-in `input()`, dipastikan tidak kosong dan tidak sama dengan `nama_item`.<br>
-Terakhir, mengembalikan `nama_item` dan `nama_item_baru`. 
-```
     # Mengambil input nama item yang lama maupun yang baru
     nama_item = input_update('Masukkan nama barang yang ingin diupdate: ', order_items)
     nama_item_baru = (input('Masukkan nama barang yang baru: ')).title()
@@ -228,8 +192,96 @@ Terakhir, mengembalikan `nama_item` dan `nama_item_baru`.
     
     return nama_item, nama_item_baru
 ```
+`nama_item_baru` yang didapatkan dari fungsi built-in `input()` dipastikan tidak kosong dan tidak sama dengan `nama_item` <br> Lalu mengembalikan `nama_item` dan `nama_item_baru`
+
+`input_update_qty()` mengganti jumlah dari `nama_item` sesuai jumlah baru yang diinput pelanggan.
+```
+def input_update_qty(order_items: dict):
+    '''
+    Fungsi untuk mengembalikan nama item yang jumlahnya ingin diubah beserta jumlah yang baru
+    args:
+        order_items (dict): item yang telah dipesan beserta detailnya
+    return:
+        nama_item (str): nama item yang jumlahnya ingin diubah
+        update_jumlah_item (int): jumlah item yang baru
+    '''
+     # Mengambil input nama dan jumlah item
+    nama_item = input_update('Masukkan nama barang yang jumlahnya ingin diupdate: ', order_items)
+    update_jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
+
+    # Memastikan jumlah_item lebih dari 0
+    while update_jumlah_item <= 0:
+            print(f'Jumlah {nama_item} harus lebih dari 0. Silakan coba lagi.')
+            update_jumlah_item = input_int(f'Masukkan jumlah {nama_item} yang baru: ')
+
+    # Memastikan jumlah_item tidak sama dengan jumlah_item di dalam order_items
+    while update_jumlah_item == order_items[nama_item][0]:
+        print(f'Jumlah {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][0]}')
+        update_jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
+    
+    return nama_item, update_jumlah_item
+``` 
+`update_jumlah_item` yang didapatkan dari fungsi `input_int()` dipastikan lebih dari 0 dan tidak sama dengan jumlah item sebelumnya. Lalu mengembalikan `nama_item` dan `update_jumlah_item`
+
+`input_update_price()` mengganti harga dari `nama_item` sesuai harga baru yang diinput pelanggan.
+```
+def input_update_price(order_items: dict):
+    '''
+    Fungsi untuk mengembalikan nama item yang harganya ingin diubah beserta harga yang baru
+    args:
+        order_items (dict): item yang telah dipesan beserta detailnya
+    return:
+        nama_item (str): nama item yang harganya ingin diubah
+        update_harga_item (int): harga item yang baru
+    '''
+    # Mengambil input nama dan harga item
+    nama_item = input_update('Masukkan nama barang yang harganya ingin diupdate: ', order_items)
+    update_harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
+
+    # Memastikan harga_item lebih dari 0
+    while update_harga_item <= 0:
+            print(f'Harga {nama_item} harus lebih dari 0. Silakan coba lagi.')
+            update_harga_item = input_int(f'Masukkan harga {nama_item} yang baru: ')
+
+    # Memastikan harga_item tidak sama dengan harga_item di dalam order_items
+    while update_harga_item == order_items[nama_item][1]:
+        print(f'Harga {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][1]}')
+        update_harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
+    
+    return nama_item, update_harga_item
+```
+`update_harga_item` yang didapatkan dari fungsi `input_int()` dipastikan lebih dari 0 dan tidak sama dengan harga item sebelumnya. Lalu mengembalikan `nama_item` dan `update_harga_item`
+
 ---
-**update_item_name()**<br>
+**add_item.py**
+
+Modul `add_item` hanya berisi satu fungsi yang bertugas memasukkan return dari `input_item()` ke dalam dictionary. <br> Fungsi `add_item()` menerima argumen berupa list `nama_items` `jumlah_items` dan `harga_items` lalu mengembalikannya dalam bentuk dictionary `order_items` yang keynya adalah `nama_item` dan valuenya berupa list berisi `jumlah_item` dan `harga_item`
+```
+def add_item(nama_items: list, jumlah_items: list, harga_items: list):
+    '''
+    Fungsi untuk memasukkan masing-masing item ke dalam daftar pesanan
+    args:
+        nama_items (list): nama item yang dipesan
+        jumlah_items (list): jumlah item yang dipesan
+        harga_items (list): harga item yang dipesan
+    return:
+        order_items (dict): item yang telah dipesan beserta detailnya
+    '''
+    order_items = {}
+    
+    # Memasangkan detail item dengan nama itemnya
+    for i in range(len(nama_items)):
+        order_items[nama_items[i].title()] = [jumlah_items[i], harga_items[i]]
+    
+    print(f'Daftar barang yang Anda pesan adalah sebagai berikut: {order_items}')
+
+    return order_items
+```
+Melakukan looping sesuai banyaknya item yang sudah dimasukkan pelanggan, memasangkan key `nama_item` dengan list `[jumlah_item, harga_item]` di dalam `order_items` dan mengembalikan `order_items`
+
+---
+**update_item_name()**
+
 `update_item_name()` menerima `nama_item`, `nama_item_baru`, dan `order_items` sebagai argumen, lalu mengganti key `nama_item` di dalam `order_items` dengan key `nama_item_baru`.
 ```
 def update_item_name(nama_item: str, update_nama_item: str, order_items: dict):
@@ -258,40 +310,9 @@ Jika ada error, menampilkan pesan kesalahan.
     except KeyError as error:
         print(f'{update_nama_item} gagal ditambahkan. {error}. Silakan coba lagi.')
 ```
----
-**input_update_qty()**<br>
-`input_update_qty()` meminta pelanggan memasukkan nama item yang jumlahnya ingin diganti dan jumlah item yang baru secara berurutan.<br>
-```
-def input_update_qty(order_items: dict):
-    '''
-    Fungsi untuk mengembalikan nama item yang jumlahnya ingin diubah beserta jumlah yang baru
-    args:
-        order_items (dict): item yang telah dipesan beserta detailnya
-    return:
-        nama_item (str): nama item yang jumlahnya ingin diubah
-        update_jumlah_item (int): jumlah item yang baru
-    '''
-```
-`nama_item` didapatkan dengan method `input_update()`.<br> 
-`update_jumlah_item` didapatkan dengan method `input_int()`, dipastikan lebih dari 0 dan tidak sama dengan jumlah item sebelumnya.<br>
-Terakhir, mengembalikan `nama_item` dan `update_jumlah_item`. 
-```
-    # Mengambil input nama dan jumlah item
-    nama_item = input_update('Masukkan nama barang yang jumlahnya ingin diupdate: ', order_items)
-    update_jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
 
-    # Memastikan jumlah_item lebih dari 0
-    while update_jumlah_item <= 0:
-            print(f'Jumlah {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            update_jumlah_item = input_int(f'Masukkan jumlah {nama_item} yang baru: ')
 
-    # Memastikan jumlah_item tidak sama dengan jumlah_item di dalam order_items
-    while update_jumlah_item == order_items[nama_item][0]:
-        print(f'Jumlah {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][0]}')
-        update_jumlah_item = input_int(f'Masukkan jumlah {nama_item.lower()} yang baru: ')
-    
-    return nama_item, update_jumlah_item
-```
+
 ---
 **update_item_qty()**<br>
 `update_item_qty()` menerima `nama_item`, `update_jumlah_item`, dan `order_items` sebagai argumen, lalu mengganti jumlah `nama_item` di dalam `order_items` dengan `update_jumlah_item`.
@@ -322,40 +343,8 @@ Jika ada error, menampilkan pesan kesalahan.
     except KeyError as error:
         print(f'Pergantian jumlah {nama_item.lower()} gagal. {error}. Silakan coba lagi.')
 ```
----
-**input_update_price()**<br>
-`input_update_price()` meminta pelanggan memasukkan nama item yang harganya ingin diganti dan harga item yang baru secara berurutan.<br>
-```
-def input_update_price(order_items: dict):
-    '''
-    Fungsi untuk mengembalikan nama item yang harganya ingin diubah beserta harga yang baru
-    args:
-        order_items (dict): item yang telah dipesan beserta detailnya
-    return:
-        nama_item (str): nama item yang harganya ingin diubah
-        update_harga_item (int): harga item yang baru
-    '''
-```
-`nama_item` didapatkan dengan method `input_update()`.<br> 
-`update_harga_item` didapatkan dengan method `input_int()`, dipastikan lebih dari 0 dan tidak sama dengan harga item sebelumnya.<br>
-Terakhir, mengembalikan `nama_item` dan `update_harga_item`. 
-```
-    # Mengambil input nama dan harga item
-    nama_item = input_update('Masukkan nama barang yang harganya ingin diupdate: ', order_items)
-    update_harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
 
-    # Memastikan harga_item lebih dari 0
-    while update_harga_item <= 0:
-            print(f'Harga {nama_item} harus lebih dari 0. Silakan coba lagi.')
-            update_harga_item = input_int(f'Masukkan harga {nama_item} yang baru: ')
 
-    # Memastikan harga_item tidak sama dengan harga_item di dalam order_items
-    while update_harga_item == order_items[nama_item][1]:
-        print(f'Harga {nama_item.lower()} tidak boleh sama dengan sebelumnya: {order_items[nama_item][1]}')
-        update_harga_item = input_int(f'Masukkan harga {nama_item.lower()} yang baru: ')
-    
-    return nama_item, update_harga_item
-```
 ---
 **update_item_price()**<br>
 `update_item_price()` menerima `nama_item`, `update_harga_item`, dan `order_items` sebagai argumen, lalu mengganti harga `nama_item` di dalam `order_items` dengan `update_harga_item`.
@@ -754,7 +743,7 @@ Setelah pelanggan selesai menambahkan item kembali, ia ingin menghitung total be
 ![Hasil test case 4](https://i.imgur.com/JJckX2w.png)
 4. Data telah masuk ke dalam tabel di SQLite database
 ![Hasil test case 4](https://i.imgur.com/qUEc9Ff.png)<br>
-Isi tabel dapat dilihat dengan fungsi `select_table()`.
+Isi tabel dapat dilihat dengan fungsi `select_table()`
 ```
 def select_table():
     '''
@@ -784,7 +773,7 @@ def select_table():
     # Menutup koneksi dengan database setelah semua task dikerjakan
     CONN.close()
 ```
-<br>
+
 
 # Conclusion
 Program Super Cashier adalah program yang dirancang untuk memasukkan input dari pelanggan dan secara otomatis memasukkannya ke dalam SQLite database.<br>
