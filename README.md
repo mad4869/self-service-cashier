@@ -420,7 +420,7 @@ Setelah menghapus semua data `order_items` dengan method `clear()` memastikan ni
 ---
 **check_order.py**
 
-Modul `check_order` berisi fungsi yang menerima `order_items` sebagai argumen lalu menampilkannya dalam bentuk tabel dengan bantuan modul `tabulate`
+Modul `check_order` berisi fungsi yang menerima `order_items` sebagai argumen lalu menampilkannya dalam bentuk tabel dengan bantuan library `tabulate`
 ```
 from tabulate import tabulate
 
@@ -534,7 +534,7 @@ Terakhir, memasukkan data di dalam `table_items` ke SQLite database melalui fung
 ---
 **insert_to_table.py**
 
-Modul `insert_to_table` berisi fungsi yang menerima `table_items` sebagai argumen, lalu memasukkannya ke dalam SQLite database dengan bantuan modul `sqlalchemy` <br> Engine database dibuat terpisah di dalam modul `database_engine`
+Modul `insert_to_table` berisi fungsi yang menerima `table_items` sebagai argumen, lalu memasukkannya ke dalam SQLite database dengan bantuan library `sqlalchemy` <br> Engine database dibuat terpisah di dalam modul `database_engine`
 ```
 from sqlalchemy import create_engine
 
@@ -588,7 +588,7 @@ def insert_to_table(table_items: dict):
 ```
 Pertama membuat koneksi ke database dengan memanggil engine dan method `connect()`
 
-Membuat `insert_query` dengan bantuan fungsi `text()` dari modul `sqlalchemy` <br> Data akan dimasukkan ke dalam tabel `items` dengan kolom-kolom:
+Membuat `insert_query` dengan bantuan fungsi `text()` dari library `sqlalchemy` <br> Data akan dimasukkan ke dalam tabel `items` dengan kolom-kolom:
 - item_id (diomit di dalam query karena autoincrement)
 - nama_item
 - jumlah_item
