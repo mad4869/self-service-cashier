@@ -1,5 +1,5 @@
-# Super Cashier
-Super Cashier adalah program berbasis python yang dirancang agar seorang pelanggan dapat memasukkan sendiri item serta jumlah dan harga item ke dalam daftar pesanan yang kemudian akan disimpan di dalam SQLite database.
+# Self-service Cashier
+Self-service Cashier adalah program berbasis python yang dirancang agar seorang pelanggan dapat memasukkan sendiri item serta jumlah dan harga item ke dalam daftar pesanan yang kemudian akan disimpan di dalam SQLite database.
 
 
 # Background
@@ -8,7 +8,7 @@ Seorang pemilik supermarket besar di salah satu kota di Indonesia memiliki renca
 - Pelanggan yang tidak berada di kota tersebut bisa membeli barang dari supermarket tersebut.
 
 # Requirements
-Beberapa fitur program yang dibutuhkan pada Super Cashier antara lain:
+Beberapa fitur program yang dibutuhkan pada Self-service Cashier antara lain:
 1. Pelanggan dapat memasukkan nama, jumlah, dan harga item ke dalam daftar pesanan
 2. Pelanggan dapat memperbarui nama, jumlah, dan harga item yang telah dimasukkan sebelumnya
 3. Pelanggan dapat menghapus salah satu atau seluruh item dari daftar pesanan
@@ -763,6 +763,6 @@ def select_table():
 
 
 # Conclusion
-Program Super Cashier adalah program yang dirancang untuk memasukkan input dari pelanggan dan secara otomatis memasukkannya ke dalam SQLite database.<br> Hal-hal yang dapat dilakukan untuk memperbaiki program adalah:
+Program Self-service Cashier adalah program yang dirancang untuk memasukkan input dari pelanggan dan secara otomatis memasukkannya ke dalam SQLite database.<br> Hal-hal yang dapat dilakukan untuk memperbaiki program adalah:
 1. Merefaktorisasi script menjadi script yang ditulis dalam bentuk Object Oriented Programming (OOP).
 2. Menambahkan fitur tambahan seperti fitur yang menghandle pembayaran transaksi.
