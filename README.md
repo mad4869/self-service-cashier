@@ -2,12 +2,12 @@
 Self-service Cashier adalah program berbasis python yang dirancang agar seorang pelanggan dapat memasukkan sendiri item serta jumlah dan harga item ke dalam daftar pesanan yang kemudian akan disimpan di dalam SQLite database.
 
 
-# Background
+## Background
 Seorang pemilik supermarket besar di salah satu kota di Indonesia memiliki rencana untuk melakukan perbaikan proses bisnis, yaitu membuat sistem kasir self-service dengan harapan:
 - Pelanggan bisa langsung memasukkan item, jumlah item, dan harga item yang dibeli serta beberapa fitur lain.
 - Pelanggan yang tidak berada di kota tersebut bisa membeli barang dari supermarket tersebut.
 
-# Requirements
+## Requirements
 Beberapa fitur program yang dibutuhkan pada Self-service Cashier antara lain:
 1. Pelanggan dapat memasukkan nama, jumlah, dan harga item ke dalam daftar pesanan
 2. Pelanggan dapat memperbarui nama, jumlah, dan harga item yang telah dimasukkan sebelumnya
@@ -17,7 +17,7 @@ Beberapa fitur program yang dibutuhkan pada Self-service Cashier antara lain:
 6. Pelanggan dapat melihat total pembayaran dari keseluruhan transaksi
 7. Program dapat menyimpan data pesanan ke dalam database
 
-# Alur Program
+## Alur Program
 ![A flowchart image that explains how the program runs](https://i.imgur.com/APH7xhq.jpg)
 **START**
 
@@ -53,7 +53,7 @@ Beberapa fitur program yang dibutuhkan pada Self-service Cashier antara lain:
 **END** 
 
 
-# Penjelasan Code
+## Penjelasan Code
 **inputs.py**
 
 Modul `inputs` adalah modul yang berisi fungsi-fungsi yang akan meminta input dari pelanggan.
@@ -695,7 +695,7 @@ create_table()
 ```
 
 
-# Hasil Test Case
+## Hasil Test Case
 Test case dilakukan untuk memastikan fungsi-fungsi yang ditulis dapat bekerja dengan baik.
 
 
@@ -762,7 +762,7 @@ def select_table():
 ```
 
 
-# Conclusion
+## Conclusion
 Program Self-service Cashier adalah program yang dirancang untuk memasukkan input dari pelanggan dan secara otomatis memasukkannya ke dalam SQLite database.<br> Hal-hal yang dapat dilakukan untuk memperbaiki program adalah:
 1. Merefaktorisasi script menjadi script yang ditulis dalam bentuk Object Oriented Programming (OOP).
 2. Menambahkan fitur tambahan seperti fitur yang menghandle pembayaran transaksi.
