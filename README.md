@@ -24,7 +24,8 @@ The Self-service Cashier program requires the following features:
 ## Program Scheme
 
 ![A flowchart image that explains how the program runs](/docs/flowchart.jpg)
-__START__
+
+### START
 
 1. The customer will be prompted to enter the item name, item quantity, and item price sequentially using the `input_item()` function. `input_item()` will then check if the customer still wants to add items to the order. If they do, the customer will be asked to enter the next item's name, quantity, and price. Once the customer has finished entering items, `input_item()` will stop functioning and return the item name, quantity, and price values in the form of a list
 2. The list of item names, quantities, and prices is processed by the `add_item()` function, which pairs the items and their details into the order_items dictionary.
@@ -52,7 +53,7 @@ __START__
 
     The total payment of all items will be displayed. Finally, `check_out()` will call the `insert_to_table()` function to insert the data into the database.
 
-__END__
+### END
 
 ## Code Explanation
 
