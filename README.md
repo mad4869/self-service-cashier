@@ -1,5 +1,7 @@
 # Self-service Cashier
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mad4869/self-service-cashier/HEAD?labpath=%2Fmodules%2Fmain.ipynb)
+
 __Self-service Cashier__ is a Python-based program designed to allow customers to enter items, along with their respective quantities and prices, into an order list. This information is then stored in an SQLite database.
 
 ## Background Scenario
